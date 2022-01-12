@@ -1,3 +1,3 @@
 format:
-    isort .
-	black --line-length 100 .
+	isort .
+	black .
