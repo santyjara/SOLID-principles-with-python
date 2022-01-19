@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Dict, List, Union
+from typing import Dict, List, Optional, Union
 
 
 class ModelStrategy(ABC):
@@ -7,13 +7,14 @@ class ModelStrategy(ABC):
     supported versions of some algorithm. The context uses this
     interface to call the algorithm defined by the concrete
     strategies.
+
     Attributes
     ----------
-    model_path : str
+    model_path : Optional[str]
         Path where a pre-trained model is stored
     """
 
-    def __init__(self, model_path: str):
+    def __init__(self, model_path: Optional[str] = None):
         self.model_path = model_path
 
     @abstractmethod
@@ -41,11 +42,13 @@ class Model:
     objects. The context doesn't know the concrete class of a
     strategy. It should work with all strategies via the
     strategy interface.
+
     Attributes
     ----------
     strategy : ModelStrategy
         Model strategy to be used
     """
+
     def __init__(self, strategy: ModelStrategy) -> None:
         self._strategy = strategy
 
@@ -65,7 +68,7 @@ class Model:
         y_test: List[str],
         params: Dict[str, Union[str, int]],
     ) -> None:
-        print("Training ....", end=" ")
+        print("Training ....")
         self._strategy.train(x_train, y_train, x_test, y_test, params)
         print("Finished !!")
 
@@ -75,10 +78,10 @@ class Model:
         return results
 
     def eval(self, x_test: List[str], y_test: List[str]) -> Dict[str, float]:
-        print("Evaluating model ....", end=" ")
+        print("Evaluating model ....")
         metrics = self._strategy.eval(x_test, y_test)
         print("ok")
-        print("\n Model performance metrics:", end="\n * ")
+        print("\n Evaluation performance metrics:", end="\n * ")
         for metric, value in metrics.items():
             print(f"{metric}: {value}", end="\n * ")
         return metrics
