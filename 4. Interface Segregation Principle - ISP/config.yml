@@ -1,0 +1,16 @@
+RNN:
+  vocab_size: 5000
+  embedding_output_dim: 64
+  batch_size: 64
+  epochs: 10
+
+sentence-encoder:
+  sentence_encoder_name: sentence-transformers/all-MiniLM-L6-v2
+  n_estimators: 5
+  max_depth: 5
+
+data:
+  format: csv
+  data_path: data/IMDB Dataset.csv
+  sentence_column: review
+  target_column: sentiment
