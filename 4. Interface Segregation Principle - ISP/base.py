@@ -29,7 +29,7 @@ class ModelStrategy(ABC):
         pass
 
     @abstractmethod
-    def predict(self, samples: Union[str, list[str]]) -> List[int]:
+    def predict(self, samples: Union[str, List[str]]) -> List[int]:
         pass
 
     @abstractmethod
@@ -72,7 +72,7 @@ class Model:
         self._strategy.train(x_train, y_train, x_test, y_test, params)
         print("Finished !!")
 
-    def __call__(self, samples: Union[str, list[str]]) -> List[int]:
+    def __call__(self, samples: Union[str, List[str]]) -> List[int]:
         results = self._strategy.predict(samples)
         print(f"Predictions: \n \t {results}")
         return results
