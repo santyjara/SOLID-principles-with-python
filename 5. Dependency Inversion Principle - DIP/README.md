@@ -47,8 +47,9 @@ def train_model(
 ):
     best_loss = ... # pick the worst possible loss value
     for epoch in range(self.num_epochs):
-        loss, metrics = ... # do forward pass, computing loss and metrics
-        ... # do the backwward pass for each batch
+        for X, y in dataset:
+            loss, metrics = ... # do forward pass, computing loss and metrics
+            ... # do the backwward pass for each batch
         for callback in callbacks:
             callback(loss, metrics)
 ```
