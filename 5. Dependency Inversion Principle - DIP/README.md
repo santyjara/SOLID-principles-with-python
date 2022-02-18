@@ -54,4 +54,9 @@ def train_model(
 ```
 Now, logging training progress and saving the model is not mentioned in this module, all we know is that the training algorithm executes some callbacks at the end of every epoch, but the _details_ of those callbacks are not important: we can change where and how the training progress is beind saved (e.g. we can log to a file, to the standard output or to a remote server) or we can modify the rules for saving the model (e.g. a model is saved only every few epochs to reduce latency or using a runing average of the loss to reduce noise).
 
+Given that the DIP tells us _how_ to achieve loose coupling instead of _when_ to achieve it, the tricky part becomes when to use it. Here are a couple of cases when I find it useful:
+* When it is likely that implementations will change in the future (e.g. save model every few epochs instead of every epoch). The designer of the system being built can forsee a few things based on their knowledge of the domain of the application being built, but it is impossible to know for sure; therefore, my suggestion is to apply it whenever you actually realize there was a change in the requirements. Forseeing too many things in advance can increase the cost of development and prevent you from delivering features in time. 
+* When there are some IO operations involved (e.g. when connecting to a DB or calling an external server). This will allow you test your entire application without the need to connecting to a particular server (unittesting), which improves the speed and stability of the tests.
+
+
 [^1]: Be aware that there are a ton of simplifications and code that had to be omited in order to focus on the important aspects, the same is true for all other examples.
